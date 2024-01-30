@@ -1,5 +1,6 @@
 """Base settings to build other settings files upon."""
 
+import os
 from pathlib import Path
 
 import environ
@@ -39,7 +40,7 @@ USE_I18N = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#use-tz
 USE_TZ = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#locale-paths
-LOCALE_PATHS = [str(BASE_DIR / "locale")]
+LOCALE_PATHS = []
 
 # DATABASES
 # ------------------------------------------------------------------------------
@@ -81,10 +82,7 @@ THIRD_PARTY_APPS = [
     "drf_spectacular",
 ]
 
-LOCAL_APPS = [
-    "jobs_playground.users",
-    # Your stuff: custom apps go here
-]
+LOCAL_APPS = ["jobs_playground.core", "jobs_playground.users", "jobs_playground.jobs"]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
@@ -133,7 +131,6 @@ MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
-    "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -305,3 +302,4 @@ SPECTACULAR_SETTINGS = {
 }
 # Your stuff...
 # ------------------------------------------------------------------------------
+TESTING = False

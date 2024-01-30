@@ -1,54 +1,43 @@
 # jobs-playground
 
-Behold My Awesome Project!
+The following is a test app used for interviews at EarnBetter.
 
-[![Built with Cookiecutter Django](https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg?logo=cookiecutter)](https://github.com/cookiecutter/cookiecutter-django/)
-[![Black code style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
+# Tools
 
-License: MIT
+## Application
 
-## Settings
+* Django
+* Django Rest Framework
 
-Moved to [settings](http://cookiecutter-django.readthedocs.io/en/latest/settings.html).
+## Infrastructure
 
-## Basic Commands
+* PostgreSQL (Database)
+* Redis (Cache Layer)
 
-### Setting Up Your Users
+# Getting Started
 
-- To create a **normal user account**, just go to Sign Up and fill out the form. Once you submit it, you'll see a "Verify Your E-mail Address" page. Go to your console to see a simulated email verification message. Copy the link into your browser. Now the user's email should be verified and ready to go.
+The project is designed to run as a vscode dev container on a local machine or using github codespaces. Once the dev container is started run
 
-- To create a **superuser account**, use this command:
+```bash
+# run migrations and start the django server
+/start
+```
 
-      $ python manage.py createsuperuser
+# Features to implement
 
-For convenience, you can keep your normal user logged in on Chrome and your superuser logged in on Firefox (or similar), so that you can see how the site behaves for both kinds of users.
+## Recent Searches
 
-### Type checks
+We have the ability to search for jobs based on a set of criteria. We would like to give our users the ability to recall searches they've perfomed in the past.
 
-Running type checks with mypy:
+### Requirements
 
-    $ mypy jobs_playground
+* The search endpoint `/api/jobs` is used in various places and should not always be saved, it is up to the UI to determine when a search is saved
+* The UI only needs to show the last 5 saved searches
+* For each search term we only want one entry, this is regardless of any other filters such as job_type changing
 
-### Test coverage
+## Job of the Day
 
-To run the tests, check your test coverage, and generate an HTML coverage report:
+Users are shown recommendations based on their profile. We would like to highlight the top recommendation as a Job of the Day in the UI. The goal is
+generate interest in clicking on a job.
 
-    $ coverage run -m pytest
-    $ coverage html
-    $ open htmlcov/index.html
-
-#### Running tests with pytest
-
-    $ pytest
-
-### Live reloading and Sass CSS compilation
-
-Moved to [Live reloading and SASS compilation](https://cookiecutter-django.readthedocs.io/en/latest/developing-locally.html#sass-compilation-live-reloading).
-
-## Deployment
-
-The following details how to deploy this application.
-
-### Docker
-
-See detailed [cookiecutter-django Docker documentation](http://cookiecutter-django.readthedocs.io/en/latest/deployment-with-docker.html).
+### Requirements

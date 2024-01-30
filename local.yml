@@ -3,6 +3,8 @@ version: '3'
 volumes:
   jobs_playground_local_postgres_data: {}
   jobs_playground_local_postgres_data_backups: {}
+  jobs_playground_local_redis_data:
+    driver: local
 
 services:
   django:
@@ -18,9 +20,10 @@ services:
     env_file:
       - ./.envs/.local/.django
       - ./.envs/.local/.postgres
+      - ./.envs/.local/.redis
     ports:
-      - '8080:8080'
-    command: /start
+      - '8000:8000'
+    command: /bin/sh -c "while sleep 1000; do :; done"
 
   postgres:
     build:
@@ -33,19 +36,12 @@ services:
       - jobs_playground_local_postgres_data_backups:/backups
     env_file:
       - ./.envs/.local/.postgres
-
-  docs:
-    image: jobs_playground_local_docs
-    container_name: jobs_playground_local_docs
-    build:
-      context: .
-      dockerfile: ./compose/local/docs/Dockerfile
-    env_file:
-      - ./.envs/.local/.django
-    volumes:
-      - ./docs:/docs:z
-      - ./config:/app/config:z
-      - ./jobs_playground:/app/jobs_playground:z
+  
+  redis:
+    image: redis:7-alpine
+    restart: always
     ports:
-      - '9000:9000'
-    command: /start-docs
+      - 6379:6379
+    command: redis-server --save 20 1 --loglevel warning
+    volumes:
+      - jobs_playground_local_redis_data:/data

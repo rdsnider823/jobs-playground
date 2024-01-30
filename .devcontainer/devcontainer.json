@@ -28,6 +28,7 @@
     "customizations": {
         "vscode": {
             "settings": {
+                "flashpost.saveDataToWorkspace": true,
                 "editor.formatOnSave": true,
                 "[python]": {
                     "analysis.autoImportCompletions": true,
@@ -67,7 +68,9 @@
                 "ms-python.isort",
                 "ms-python.black-formatter",
                 // django
-                "batisteo.vscode-django"
+                "batisteo.vscode-django",
+                // Testing
+                "VASubasRaj.flashpost"
             ]
         }
     },

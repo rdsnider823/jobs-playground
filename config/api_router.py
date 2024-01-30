@@ -1,6 +1,7 @@
 from django.conf import settings
 from rest_framework.routers import DefaultRouter, SimpleRouter
 
+from jobs_playground.jobs.api.views import JobViewSet
 from jobs_playground.users.api.views import UserViewSet
 
 if settings.DEBUG:
@@ -9,6 +10,7 @@ else:
     router = SimpleRouter()
 
 router.register("users", UserViewSet)
+router.register("jobs", JobViewSet)
 
 
 app_name = "api"

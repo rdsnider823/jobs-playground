@@ -18,10 +18,12 @@ ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1"]
 # https://docs.djangoproject.com/en/dev/ref/settings/#caches
 CACHES = {
     "default": {
-        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
-        "LOCATION": "",
+        "BACKEND": "redis_lock.django_cache.RedisCache",
+        "LOCATION": f'redis://{os.environ.get("REDIS_ENDPOINT", )}',
+        "OPTIONS": {"db": "2", "CLIENT_CLASS": "django_redis.client.DefaultClient"},
     }
 }
+
 
 # EMAIL
 # ------------------------------------------------------------------------------

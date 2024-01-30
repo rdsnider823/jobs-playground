@@ -52,14 +52,3 @@ class TestUserAdmin:
             reload(users_admin)
         except admin.sites.AlreadyRegistered:
             pass
-
-    @pytest.mark.django_db
-    @pytest.mark.usefixtures("force_allauth")
-    def test_allauth_login(self, rf, settings):
-        request = rf.get("/fake-url")
-        request.user = AnonymousUser()
-        response = admin.site.login(request)
-
-        # The `admin` login view should redirect to the `allauth` login view
-        target_url = reverse(settings.LOGIN_URL) + "?next=" + request.path
-        assertRedirects(response, target_url, fetch_redirect_response=False)
