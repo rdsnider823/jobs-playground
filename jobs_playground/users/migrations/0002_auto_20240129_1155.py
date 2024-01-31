@@ -21,6 +21,15 @@ def create_users(apps, schema_editor):
         password=make_password("123"),  # You should choose a secure password.
     ).save()
 
+    User(
+        name="John Doe",
+        email="john.doe@example.com",
+        is_staff=False,
+        is_superuser=False,
+        title="Physical Therapist",
+        password=make_password("123"),  # You should choose a secure password.
+    ).save()
+
 
 class Migration(migrations.Migration):
     dependencies = [

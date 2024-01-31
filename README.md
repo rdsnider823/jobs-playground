@@ -25,6 +25,15 @@ The project is designed to run as a vscode dev container on a local machine or u
 
 # Features to implement
 
+## Add source to all jobs
+
+Behind the scenes jobs are imported via feeds from various providers. We want to start tracking which feed each source belongs to.
+
+### Requirements
+
+* Current sources are linkedin, monster, indeed
+* All jobs have a source feed they come from
+
 ## Recent Searches
 
 We have the ability to search for jobs based on a set of criteria. We would like to give our users the ability to recall searches they've perfomed in the past.
@@ -41,3 +50,8 @@ Users are shown recommendations based on their profile. We would like to highlig
 generate interest in clicking on a job.
 
 ### Requirements
+
+* The job comes from the first recommendation
+* The job should remain the same for an entire day
+* The recommendations page should show both in the same page
+* The dashboard should remove job of the day from the list so it is not a duplicate.

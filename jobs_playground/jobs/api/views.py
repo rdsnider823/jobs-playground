@@ -1,4 +1,7 @@
+import time
+
 from django.contrib.auth import get_user_model
+from rest_framework.decorators import action
 from rest_framework.exceptions import ValidationError
 from rest_framework.mixins import ListModelMixin, RetrieveModelMixin, UpdateModelMixin
 from rest_framework.response import Response
@@ -30,5 +33,19 @@ class JobViewSet(RetrieveModelMixin, ListModelMixin, UpdateModelMixin, GenericVi
         if search := params.get("search"):
             queryset = queryset.filter(title=search)
 
+        serializer = JobSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    @action(detail=False, methods=["get"], url_path="recommend")
+    def recommend(self, request):
+        title = request.user and request.user.title
+        if not title:
+            serializer = JobSerializer([], many=True)
+            return Response(serializer.data)
+
+        # simulate expensive call
+        time.sleep(3)
+
+        queryset = self.get_queryset().filter(title=request.user.title)
         serializer = JobSerializer(queryset, many=True)
         return Response(serializer.data)
